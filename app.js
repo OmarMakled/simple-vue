@@ -2,15 +2,17 @@ const app = Vue.createApp({});
 app.component('app', {
     data() {
       return {
-        posts: []
+        retailes: []
       };
     },
     template: `
       <div class="container mx-auto">
-        <div class="mb-2" v-for="post in posts" :key="post.id">
-          <post-list :post="post"></post-list>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="bg-gray-300 p-4" v-for="retaile in retailes" :key="retaile.id">
+                <retaile-list :retaile="retaile"></retaile-list> 
+            </div>
         </div>
-      </div>
+    </div>
     `,
     mounted() {
         this.fetchData();
@@ -18,13 +20,13 @@ app.component('app', {
     methods: {
         async fetchData() {
             try {
-              const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+              const response = await fetch('http://localhost:3000/api/retailes');
               
               if (!response.ok) {
                 throw new Error('Network response was not ok');
               }
           
-              this.posts = await response.json();
+              this.retailes = await response.json();
             } catch (error) {
               console.error('An error occurred:', error);
             }
